@@ -1,1 +1,7 @@
+## Interface: 20504
+## Title: Raik_Window
+## Author: Raikoug
+## Version: 0.96
+## SavedVariablesPerCharacter: TIPOUPDATE, FONTSIZE, FONTTYPE, SfondoR, SfondoG, SfondoB, SfondoA, HeadColor, BodyColor, HeadR, HeadG, HeadB, BodyR, BodyG, BodyB
 
+windows.lua
