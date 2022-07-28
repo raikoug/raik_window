@@ -19,62 +19,77 @@ addonName = "RaikWindow"
 
 
 if TIPOUPDATE == nil then
+    if DLAPI then DLAPI.DebugLog(addonName, "Init TIPOUPDATE" ) end
     TIPOUPDATE = 'melee'
 end
-if FONTSIZE == nil then
+if FONTSIZE == nil then 
     FONTSIZE = 11
+    if DLAPI then DLAPI.DebugLog(addonName, "Init FONTSIZE" ) end
 end
 
-if FONTTYPE == nil then
+if FONTTYPE == nil then 
     FONTTYPE = 'Fonts\\FRIZQT__.TTF'
+    if DLAPI then DLAPI.DebugLog(addonName, "Init FONTTYPE" ) end
 end
 
-if SfondoR == nil then
+if SfondoR == nil then 
     SfondoR = 0.5
+    if DLAPI then DLAPI.DebugLog(addonName, "Init SfondoR" ) end
 end
 
-if SfondoG == nil then
+if SfondoG == nil then 
     SfondoG = 0.5
+    if DLAPI then DLAPI.DebugLog(addonName, "Init SfondoG" ) end
 end
 
-if SfondoB == nil then
+if SfondoB == nil then 
     SfondoB = 0.5
+    if DLAPI then DLAPI.DebugLog(addonName, "Init SfondoB" ) end
 end
 
-if SfondoA == nil then
+if SfondoA == nil then 
     SfondoA = 0.5
+    if DLAPI then DLAPI.DebugLog(addonName, "Init SfondoA" ) end
 end
 
-if HeadColor == nil then
+if HeadColor == nil then 
     HeadColor = "ffee4400"
+    if DLAPI then DLAPI.DebugLog(addonName, "Init HeadColor" ) end
 end
 
-if BodyColor == nil then
+if BodyColor == nil then 
     BodyColor = "FF0000FF"
+    if DLAPI then DLAPI.DebugLog(addonName, "Init BodyColor" ) end
 end
 
-if HeadR == nil then
+if HeadR == nil then 
     HeadR = 1
+    if DLAPI then DLAPI.DebugLog(addonName, "Init HeadR" ) end
 end
 
-if HeadG == nil then
+if HeadG == nil then 
     HeadG = 0.3
+    if DLAPI then DLAPI.DebugLog(addonName, "Init HeadG" ) end
 end
 
-if HeadB == nil then
+if HeadB == nil then 
     HeadB = 0.0
+    if DLAPI then DLAPI.DebugLog(addonName, "Init HeadB" ) end
 end
 
-if BodyR == nil then
+if BodyR == nil then 
     BodyR = 0
+    if DLAPI then DLAPI.DebugLog(addonName, "Init BodyR" ) end
 end
 
-if BodyG == nil then
+if BodyG == nil then 
     BodyG = 0
+    if DLAPI then DLAPI.DebugLog(addonName, "Init BodyG" ) end
 end
 
-if BodyB == nil then
+if BodyB == nil then 
     BodyB = 1
+    if DLAPI then DLAPI.DebugLog(addonName, "Init BodyB" ) end
 end
 
 
@@ -101,33 +116,35 @@ RaikFrameStat.texture:SetColorTexture(SfondoR, SfondoG, SfondoB);
 RaikFrameStat.texture:SetAlpha(SfondoA);
 
 
-function cambiaColoreSfondoRGBA(r, g, b, a)
+function cambiaColoreSfondoRGBA(SfondoRF, SfondoGF, SfondoBF, SfondoAF)
+    SfondoR = SfondoRF
+    SfondoG = SfondoGF
+    SfondoB = SfondoBF
+    SfondoA = SfondoAF
     RaikFrameStat.texture:SetColorTexture(SfondoR, SfondoG, SfondoB); 
     RaikFrameStat.texture:SetAlpha(SfondoA);
-    SfondoR = r
-    SfondoG = g
-    SfondoB = b
-    SfondoA = a
 end
 
-function cambiaColoreHeadRGB(r, g, b)
-    hexstr = RGBtoHexa(r,g,b)
+function cambiaColoreHeadRGB(HeadRF, HeadGF, HeadBF)
+      
+    HeadR = HeadRF
+    HeadG = HeadGF
+    HeadB = HeadBF
+    hexstr = RGBtoHexa(HeadRF, HeadGF, HeadBF)
     HeadColor = hexstr
     text_relaod(TIPOUPDATE)
     
-    HeadR = r
-    HeadG = g
-    HeadB = b
 end
 
-function cambiaColoreBodyRGB(r, g, b)
-    hexstr = RGBtoHexa(r,g,b)
+function cambiaColoreBodyRGB(BodyRF, BodyGF, BodyBF)
+        
+    BodyR = BodyRF
+    BodyG = BodyGF
+    BodyB = BodyBF
+
+    hexstr = RGBtoHexa(BodyRF, BodyGF, BodyBF)
     BodyColor = hexstr
     text_relaod(TIPOUPDATE)
-    
-    BodyR = r
-    BodyG = g
-    BodyB = b
 end
 
 
@@ -314,6 +331,7 @@ SKURRICYR:SetFont("Fonts\\SKURRI_CYR.TTF", 11)
 SKURRICYR:SetFontObject("GameFontNormal");
 
 function ShowColorPicker(r, g, b, a, changedCallback)
+    if DLAPI then DLAPI.DebugLog(addonName, "r: " .. r .. ", g: " .. g .. ", b: " .. b) end
     ColorPickerFrame:SetColorRGB(r,g,b);
     ColorPickerFrame.hasOpacity, ColorPickerFrame.opacity = (a ~= nil), a;
     ColorPickerFrame.previousValues = {r,g,b,a};
@@ -325,93 +343,37 @@ end
 
 
 
-function change_sfondo_colore_old()
-    local newR, newG, newB, newA;
-    if restore then
-     -- The user bailed, we extract the old color from the table created by ShowColorPicker.
-     newR, newG, newB, newA = unpack(restore);
-    else
-     -- Something changed
-     newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-    end
-
-    -- And update any UI elements that use this color...
-    cambiaColoreSfondoRGBA(newR, newG, newB, newA)
-end
-
 function change_sfondo_colore()
     local newR, newG, newB, newA;
     if restore then
-     -- The user bailed, we extract the old color from the table created by ShowColorPicker.
      newR, newG, newB, newA = unpack(restore);
     else
-     -- Something changed
      newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-     -- And update any UI elements that use this color...
-     cambiaColoreSfondoRGBA(newR, newG, newB, newA)
     end
-
-    
-end
-
-function change_header_colore_old()
-    local newR, newG, newB, newA;
-    if restore then
-        -- The user bailed, we extract the old color from the table created by ShowColorPicker.
-        newR, newG, newB, newA = unpack(restore);
-    else
-        -- Something changed
-        newR, newG, newB =  ColorPickerFrame:GetColorRGB();
-    end
-
-    -- And update any UI elements that use this color...
-    cambiaColoreHeadRGB(newR, newG, newB)
-
+    cambiaColoreSfondoRGBA(newR, newG, newB, newA)
 end
 
 
 function change_header_colore()
     local newR, newG, newB, newA;
     if restore then
-        -- The user bailed, we extract the old color from the table created by ShowColorPicker.
         newR, newG, newB, newA = unpack(restore);
     else
-        -- Something changed
-        newR, newG, newB =  ColorPickerFrame:GetColorRGB();
-        -- And update any UI elements that use this color...
-        cambiaColoreHeadRGB(newR, newG, newB)
-    end
-
-end
-
-function change_body_colore_old()
-    local newR, newG, newB, newA;
-    if restore then
-        -- The user bailed, we extract the old color from the table created by ShowColorPicker.
-        newR, newG, newB, newA = unpack(restore);
-    else
-        -- Something changed
         newR, newG, newB =  ColorPickerFrame:GetColorRGB();
     end
-    -- And update any UI elements that use this color...
-    cambiaColoreBodyRGB(newR, newG, newB)
+    cambiaColoreHeadRGB(newR, newG, newB)
+
 end
 
 function change_body_colore()
     local newR, newG, newB, newA;
     if restore then
-        -- The user bailed, we extract the old color from the table created by ShowColorPicker.
         newR, newG, newB, newA = unpack(restore);
     else
-        -- Something changed
         newR, newG, newB =  ColorPickerFrame:GetColorRGB();
-        -- And update any UI elements that use this color...
-        cambiaColoreBodyRGB(newR, newG, newB)
     end
-    
+    cambiaColoreBodyRGB(newR, newG, newB)
 end
-
-
 
  -- menu create function
 function Test1_DropDown_Initialize(self,level)
@@ -628,7 +590,8 @@ function text_relaod(TipoAttacco)
         DefenseValue = tostring(baseDefense)
         DEFStringa = '<h1 align="center">|c' .. HeadColor ..'Defense:|r</h1><p align="center">|c' .. BodyColor .. ' ' .. DefenseValue  .. '|r</p>'
 
-        if DLAP/console scriptErrors 1
+        -- /console scriptErrors 1
+        if DLAPI then DLAPI.DebugLog(addonName, "Defense presa" ) end
 
         DodgeChance = format("%.2f%%", GetDodgeChance())
         DODGESTringa = '<h1 align="center">|c' .. HeadColor ..'Dodge:|r</h1><p align="center">|c' .. BodyColor .. ' ' .. DodgeChance  .. '|r</p>'
