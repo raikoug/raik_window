@@ -343,7 +343,7 @@ end
 
 
 
-function change_sfondo_colore()
+function change_sfondo_colore(restore)
     local newR, newG, newB, newA;
     if restore then
      newR, newG, newB, newA = unpack(restore);
