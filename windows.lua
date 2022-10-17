@@ -332,13 +332,15 @@ SKURRICYR:SetFontObject("GameFontNormal");
 
 function ShowColorPicker(r, g, b, a, changedCallback)
     if DLAPI then DLAPI.DebugLog(addonName, "r: " .. r .. ", g: " .. g .. ", b: " .. b) end
+    ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = 
+     changedCallback, changedCallback, changedCallback;
+
     ColorPickerFrame:SetColorRGB(r,g,b);
     ColorPickerFrame.hasOpacity, ColorPickerFrame.opacity = (a ~= nil), a;
     ColorPickerFrame.previousValues = {r,g,b,a};
-    ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = 
-     changedCallback, changedCallback, changedCallback;
-     ColorPickerFrame:Hide(); -- Need to run the OnShow handler.
-     ColorPickerFrame:Show();
+    ColorPickerFrame:Hide(); -- Need to run the OnShow handler.
+    ColorPickerFrame:Show();
+    
 end
 
 
