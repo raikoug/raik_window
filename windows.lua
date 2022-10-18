@@ -1,4 +1,4 @@
-local RaikFrameStat = CreateFrame("SimpleHTML", "DragFrame2", UIParent)
+local RaikFrameStat = CreateFrame("SimpleHTML", "DragFrame2", UIParent, "BasicFrameTemplate")
 RaikFrameStat:SetMovable(true)
 RaikFrameStat:EnableMouse(true)
 RaikFrameStat:SetResizable(true)
@@ -9,20 +9,18 @@ RaikFrameStat:SetScript("OnDragStart", RaikFrameStat.StartMoving)
 RaikFrameStat:SetScript("OnDragStop", RaikFrameStat.StopMovingOrSizing)
 
 RaikFrameStat:SetPoint("CENTER");
+
 RaikFrameStat:SetWidth(150);
 RaikFrameStat:SetHeight(150);
 
-RaikFrameStat.texture = RaikFrameStat:CreateTexture();
-RaikFrameStat.texture:SetAllPoints(RaikFrameStat);
+text = RaikFrameStat:CreateFontString("TheContent","OVERLAY","GameFontNormal");--    Our text area
+text:SetPoint("TOP", 0,-10);
+
+RaikFrameStat.TitleText:SetText("Raik Window")
 
 addonName = "RaikWindow"
 
-if TIPOUPDATE == nil then
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init TIPOUPDATE")
-    --end
-    TIPOUPDATE = 'melee'
-end
+
 if CHECKED_VALUES == nil then
     --if DLAPI then
     --    DLAPI.DebugLog(addonName, "Init CHECKED_VALUES")
@@ -40,34 +38,6 @@ if FONTTYPE == nil then
     FONTTYPE = 'Fonts\\FRIZQT__.TTF'
     --if DLAPI then
     --    DLAPI.DebugLog(addonName, "Init FONTTYPE")
-    --end
-end
-
-if SfondoR == nil then
-    SfondoR = 0.5
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init SfondoR")
-    --end
-end
-
-if SfondoG == nil then
-    SfondoG = 0.5
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init SfondoG")
-    --end
-end
-
-if SfondoB == nil then
-    SfondoB = 0.5
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init SfondoB")
-    --end
-end
-
-if SfondoA == nil then
-    SfondoA = 0.5
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init SfondoA")
     --end
 end
 
@@ -145,17 +115,6 @@ function RGBtoHexa(r, g, b)
     return res
 end
 
-RaikFrameStat.texture:SetColorTexture(SfondoR, SfondoG, SfondoB);
-RaikFrameStat.texture:SetAlpha(SfondoA);
-
-function cambiaColoreSfondoRGBA(SfondoRF, SfondoGF, SfondoBF, SfondoAF)
-    SfondoR = SfondoRF
-    SfondoG = SfondoGF
-    SfondoB = SfondoBF
-    SfondoA = SfondoAF
-    RaikFrameStat.texture:SetColorTexture(SfondoR, SfondoG, SfondoB);
-    RaikFrameStat.texture:SetAlpha(SfondoA);
-end
 
 function cambiaColoreHeadRGB(HeadRF, HeadGF, HeadBF)
 
@@ -164,7 +123,7 @@ function cambiaColoreHeadRGB(HeadRF, HeadGF, HeadBF)
     HeadB = HeadBF
     hexstr = RGBtoHexa(HeadRF, HeadGF, HeadBF)
     HeadColor = hexstr
-    text_relaod(TIPOUPDATE)
+    text_relaod()
 
 end
 
@@ -176,7 +135,7 @@ function cambiaColoreBodyRGB(BodyRF, BodyGF, BodyBF)
 
     hexstr = RGBtoHexa(BodyRF, BodyGF, BodyBF)
     BodyColor = hexstr
-    text_relaod(TIPOUPDATE)
+    text_relaod()
 end
 
 critChance = tostring(GetCritChance())
@@ -228,33 +187,18 @@ RaikFrameStat:SetScript("OnMouseWheel", function(self, arg1)
     RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
 end)
 
--- Buttons/UI-PlusButton-Up.PNG
--- Buttons/UI-PlusButton-Down.PNG
--- Buttons/UI-PlusButton-Hilight.PNG
--- Buttons/UI-MinusButton-Up.PNG
--- Buttons/UI-MinusButton-Down.PNG 
 
 RaikFrameStat:SetText('\
 <html>\
     <body>\
-        <h1>RaikStatistics</h1>\
-        <p align="center">|cffee4400AP:|r|cFF0000FF 0|r (|cFF00FF00+0|r |cFFFF0000-0|r)</p>\
-        <p align="center">|cffee4400Crit:|r|cFF0000FF 0|r</p>\
     </body>\
 </html>');
 
 RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
 
--- local button = CreateFrame("button","MyAddonButton", RaikFrameStat, "UIPanelButtonTemplate")
--- button:SetHeight(24)
--- button:SetWidth(60)
--- button:SetPoint("BOTTOM", RaikFrameStat, "BOTTOM", 0, 10)
--- button:SetText("Close")
--- button:SetScript("OnClick", function(self) PlaySound("igMainMenuOption") self:GetParent():Hide() end)
-
 -- creating test data structure
 local Test1_Data = {
-    ["Stats"] = {
+    ["01_Stats"] = {
         [1] = {
             ["name"] = "Strenght"
         },
@@ -271,7 +215,7 @@ local Test1_Data = {
             ["name"] = "Spirit"
         }
     },
-    ["Melee"] = {
+    ["02_Melee"] = {
         [1] = {
             ["name"] = "Damage"
         },
@@ -291,7 +235,7 @@ local Test1_Data = {
             ["name"] = "Crit Chance"
         }
     },
-    ["Ranged"] = {
+    ["03_Ranged"] = {
         [1] = {
             ["name"] = "Damage"
         },
@@ -311,7 +255,7 @@ local Test1_Data = {
             ["name"] = "Crit Chance"
         }
     },
-    ["Spell"] = {
+    ["04_Spell"] = {
         [1] = {
             ["name"] = "Bonus Healing"
         },
@@ -343,7 +287,7 @@ local Test1_Data = {
             ["name"] = "Arcane"
         }
     },
-    ["Defences"] = {
+    ["05_Defences"] = {
         [1] = {
             ["name"] = "Armor"
         },
@@ -355,28 +299,21 @@ local Test1_Data = {
         },
         [4] = {
             ["name"] = "Block"
-        }
-    },
-    -- ["Melee"] = {
-    --     [1] = { ["name"] = ""; },
-    --     [2] = { ["name"] = ""; },
-    --     [3] = { ["name"] = ""; },
-    --     [4] = { ["name"] = ""; },
-    --     [5] = { ["name"] = ""; },
-    --     [6] = { ["name"] = ""; },
-    -- },
-    ['Presets'] = {
-        [1] = {
-            ["name"] = "Healer"
         },
-        [2] = {
+        [5] = {
+            ["name"] = "Defense"
+        },
+        
+    },
+    ['06_Presets'] = {
+        [1] = {
             ["name"] = "Tank"
         },
-        [3] = {
-            ["name"] = "Melee DPS"
+        [2] = {
+            ["name"] = "Clean"
         }
     },
-    ["Font"] = {
+    ["07_Font"] = {
         [1] = {
             ["name"] = "2002.ttf"
         },
@@ -435,14 +372,11 @@ local Test1_Data = {
             ["name"] = "SKURRI_CYR.TTF"
         }
     },
-    ["Colors"] = {
+    ["08_Colors"] = {
         [1] = {
-            ["name"] = "sfondo"
-        },
-        [2] = {
             ["name"] = "titolo"
         },
-        [3] = {
+        [2] = {
             ["name"] = "stat"
         }
     }
@@ -522,15 +456,7 @@ function ShowColorPicker(r, g, b, a, changedCallback)
 
 end
 
-function change_sfondo_colore(restore)
-    local newR, newG, newB, newA;
-    if restore then
-        newR, newG, newB, newA = unpack(restore);
-    else
-        newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-    end
-    cambiaColoreSfondoRGBA(newR, newG, newB, newA)
-end
+
 
 function change_header_colore()
     local newR, newG, newB, newA;
@@ -584,21 +510,65 @@ local function ValueClicked(value)
         table.insert(CHECKED_VALUES, value)
     end
 
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, table.concat(CHECKED_VALUES,", "))
-    --end
-    text_relaod(TIPOUPDATE)
+    if DLAPI then
+        DLAPI.DebugLog(addonName, table.concat(CHECKED_VALUES,", "))
+    end
+    text_relaod()
 end
+
+function __genOrderedIndex( t )
+    local orderedIndex = {}
+    for key in pairs(t) do
+        table.insert( orderedIndex, key )
+    end
+    table.sort( orderedIndex )
+    return orderedIndex
+end
+
+function orderedNext(t, state)
+    -- Equivalent of the next function, but returns the keys in the alphabetic
+    -- order. We use a temporary ordered key table that is stored in the
+    -- table being iterated.
+
+    local key = nil
+    if state == nil then
+        -- the first time, generate the index
+        t.__orderedIndex = __genOrderedIndex( t )
+        key = t.__orderedIndex[1]
+    else
+        -- fetch the next value
+        for i = 1,table.getn(t.__orderedIndex) do
+            if t.__orderedIndex[i] == state then
+                key = t.__orderedIndex[i+1]
+            end
+        end
+    end
+
+    if key then
+        return key, t[key]
+    end
+
+    -- no more value to return, cleanup
+    t.__orderedIndex = nil
+    return
+end
+
+function orderedPairs(t)
+    -- Equivalent of the pairs() function on tables. Allows to iterate
+    -- in order
+    return orderedNext, t, nil
+end
+
 
 -- menu create function
 function Test1_DropDown_Initialize(self, level)
     level = level or 1;
     if (level == 1) then
-        for key, subarray in pairs(Test1_Data) do
+        for key, subarray in orderedPairs(Test1_Data) do
             local info = UIDropDownMenu_CreateInfo();
             info.hasArrow = true; -- creates submenu
             info.notCheckable = true;
-            info.text = key;
+            info.text = strsub(key, 4)
             info.keepShownOnClick = false
             info.value = {
                 ["Level1_Key"] = key
@@ -606,6 +576,9 @@ function Test1_DropDown_Initialize(self, level)
             UIDropDownMenu_AddButton(info, level);
         end -- for key, subarray
     end -- if level 1
+    
+    
+
 
     if (level == 2) then
     -- getting values of first menu
@@ -624,7 +597,7 @@ function Test1_DropDown_Initialize(self, level)
                 ["Sublevel_Key"] = key
             };
 
-            if Level1_Key == 'Font' then
+            if Level1_Key == '07_Font' then
             -- fontObject
                 if subsubarray["name"] == "2002.ttf" then
                     info.fontObject = two
@@ -670,22 +643,17 @@ function Test1_DropDown_Initialize(self, level)
                     dropdown:Hide()
                 end;
 
-            elseif has_value({'Stats', 'Melee', 'Ranged', 'Spell', 'Defences'}, Level1_Key) then
+            elseif has_value({'01_Stats', '02_Melee', '03_Ranged', '04_Spell', '05_Defences'}, Level1_Key) then
                 info.text, info.checked, info.notCheckable, info.isNotRadio = subsubarray["name"], has_value(
-                    CHECKED_VALUES, Level1_Key .. '_' .. subsubarray["name"]), false, true
+                    CHECKED_VALUES, strsub(Level1_Key, 4) .. '_' .. subsubarray["name"]), false, true
                 info.func = function()
-                    ValueClicked(Level1_Key .. '_' .. subsubarray["name"]);
+                    ValueClicked(strsub(Level1_Key, 4) .. '_' .. subsubarray["name"]);
                     dropdown:Hide()
                 end;
 
-            elseif Level1_Key == 'Colors' then
+            elseif Level1_Key == '08_Colors' then
 
-                if subsubarray["name"] == "sfondo" then
-                    info.func = function()
-                        ShowColorPicker(SfondoR, SfondoG, SfondoB, SfondoA, change_sfondo_colore);
-                        dropdown:Hide()
-                    end;
-                elseif subsubarray["name"] == "titolo" then
+                if subsubarray["name"] == "titolo" then
                     info.func = function()
                         ShowColorPicker(HeadR, HeadG, HeadB, nil, change_header_colore);
                         dropdown:Hide()
@@ -696,10 +664,24 @@ function Test1_DropDown_Initialize(self, level)
                         dropdown:Hide()
                     end;
                 end
-
+            elseif Level1_Key == '06_Presets' then
+                info.func = function()
+                    PresetFunctions[subsubarray["name"]]();
+                    dropdown:Hide()
+                end;
+                -- if subsubarray["name"] == 'Tank' then
+                --     info.func = function() 
+                --         TankPreset();
+                --         dropdown:Hide()
+                --     end;
+                -- elseif subsubarray['name'] == 'Clean' then
+                --     info.func = function() 
+                --         CleanPreset();
+                --         dropdown:Hide()
+                --     end;
+                -- end
             else
                 info.func = function()
-                    changeTipoUpdate(subsubarray["name"]);
                     dropdown:Hide()
                 end;
             end
@@ -726,14 +708,10 @@ function dump(o)
     end
 end
 
-function changeTipoUpdate(msg)
-    TIPOUPDATE = msg
-    text_relaod(TIPOUPDATE)
-end
-
 function change_font(font)
     RaikFrameStat:SetFont('Fonts\\' .. font, FONTSIZE);
     FONTTYPE = 'Fonts\\' .. font
+    text_relaod()
 end
 
 RaikFrameStat:SetAttribute("*type2", nil)
@@ -744,15 +722,47 @@ RaikFrameStat:SetScript("OnMouseDown", function(self, button)
     end
 end)
 
-function text_relaod(TipoAttacco)
+PresetFunctions = {
+    Tank = function() TankPreset() end,
+    Clean = function() CleanPreset() end
+}
 
-    content = ''
+function TankPreset()
+
+    CHECKED_VALUES = {
+        "Defences_Dodge", -- [1]
+        "Defences_Block", -- [2]
+        "Defences_Parry", -- [3]
+        "Defences_Defense", -- [4]
+        "Defences_Armor", -- [5]
+        "Stats_Strenght", -- [6]
+        "Melee_DPS", -- [7]
+    }
+    if DLAPI then
+        DLAPI.DebugLog(addonName, 'Tank preset ' .. table.concat(CHECKED_VALUES))
+    end
+    text_relaod()
+
+end
+
+function CleanPreset()
+    CHECKED_VALUES = {}
+    if DLAPI then
+        DLAPI.DebugLog(addonName, 'Tank preset ' .. table.concat(CHECKED_VALUES))
+    end
+    text_relaod()
+end
+
+
+function text_relaod()
+
+    content = '\n'
     -- POSSIBLE VALUES
     -- Defences_Armor
     if has_value(CHECKED_VALUES, 'Defences_Armor') then
         baseArmor, effectiveArmor, armor, posBuff, negBuff = UnitArmor("player")
         ArmorValue = tostring(effectiveArmor)
-        ARMORstringa = '<h1 align="center">|c' .. HeadColor .. 'Armor:|r|c' .. BodyColor .. ' ' .. ArmorValue .. '|r</h1>'
+        ARMORstringa = '|c' .. HeadColor .. 'Armor:|r|c' .. BodyColor .. ' ' .. ArmorValue .. '|r\n'
         content = content .. ARMORstringa
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Armore value ' .. ArmorValue)
@@ -761,7 +771,7 @@ function text_relaod(TipoAttacco)
     -- Defences_Block
     if has_value(CHECKED_VALUES, 'Defences_Block') then
         BlockChance = format("%.2f%%", GetBlockChance())
-        BLOCKSTringa = '<h1 align="center">|c' .. HeadColor .. 'Block:|r|c' .. BodyColor .. ' ' .. BlockChance .. '|r</h1>'
+        BLOCKSTringa = '|c' .. HeadColor .. 'Block:|r|c' .. BodyColor .. ' ' .. BlockChance .. '|r\n'
         content = content .. BLOCKSTringa
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Block value ' .. BlockChance)
@@ -770,7 +780,7 @@ function text_relaod(TipoAttacco)
     -- Defences_Dodge
     if has_value(CHECKED_VALUES, 'Defences_Dodge') then
         DodgeChance = format("%.2f%%", GetDodgeChance())
-        DODGESTringa = '<h1 align="center">|c' .. HeadColor .. 'Dodge:|r|c' .. BodyColor .. ' ' .. DodgeChance .. '|r</h1>'
+        DODGESTringa = '|c' .. HeadColor .. 'Dodge:|r|c' .. BodyColor .. ' ' .. DodgeChance .. '|r\n'
         content = content .. DODGESTringa
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Defences_Dodge ' .. DodgeChance)
@@ -779,7 +789,7 @@ function text_relaod(TipoAttacco)
     -- Defences_Parry
     if has_value(CHECKED_VALUES, 'Defences_Parry') then
         ParryChance = format("%.2f%%", GetParryChance())
-        PARRYTringa = '<h1 align="center">|c' .. HeadColor .. 'Parry:|r|c' .. BodyColor .. ' ' .. ParryChance .. '|r</h1>'
+        PARRYTringa = '|c' .. HeadColor .. 'Parry:|r|c' .. BodyColor .. ' ' .. ParryChance .. '|r\n'
         content = content .. PARRYTringa
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Defences_Parry ' .. ParryChance)
@@ -789,7 +799,7 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Melee_Crit Chance') then
         MeleecritChance = tostring(GetCritChance())
         MeleecritChance = string.sub(MeleecritChance, 1, 5) .. '%'
-        MeleeCritString = '<p align="center">|c' .. HeadColor .. 'Melee Crit:|r|c' .. BodyColor .. ' ' .. MeleecritChance .. '|r</p>'
+        MeleeCritString = '|c' .. HeadColor .. 'Melee Crit:|r|c' .. BodyColor .. ' ' .. MeleecritChance .. '|r\n'
         content = content .. MeleeCritString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Melee_Crit Chance ' .. MeleecritChance)
@@ -798,12 +808,12 @@ function text_relaod(TipoAttacco)
     -- Melee_Damage
     if has_value(CHECKED_VALUES, 'Melee_Damage') then
         lowDmg, hiDmg, offlowDmg, offhiDmg, posBuff, negBuff, percentmod = UnitDamage('player')
-        MeleeDMGString = '<p align="center">|c' .. HeadColor .. 'Melee Damage:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(lowDmg)) .. '-' .. tostring(math.floor(hiDmg)) .. '|r</p>'
+        MeleeDMGString = '|c' .. HeadColor .. 'Melee Damage:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(lowDmg)) .. '-' .. tostring(math.floor(hiDmg)) .. '|r\n'
         content = content .. MeleeDMGString
         if offlowDmg == nil then
             a=1
         else
-            MeleeOFFDMGString = '<p align="center">|c' .. HeadColor .. 'Melee Damage Offhand:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(offlowDmg)) .. '-' .. tostring(math.floor(offhiDmg)) .. '|r</p>'
+            MeleeOFFDMGString = '|c' .. HeadColor .. 'Melee Damage Offhand:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(offlowDmg)) .. '-' .. tostring(math.floor(offhiDmg)) .. '|r\n'
             content = content .. MeleeOFFDMGString
         end
         --if DLAPI then
@@ -814,7 +824,7 @@ function text_relaod(TipoAttacco)
     -- Melee_Hit Rating
     if has_value(CHECKED_VALUES, 'Melee_Hit Rating') then
         MeleeHitRate = format("%.2f%%", GetCombatRatingBonus(CR_HIT_MELEE) + GetHitModifier())
-        MeleeHitRateString = '<p align="center">|c' .. HeadColor .. 'Melee HitRate:|r|c' .. BodyColor .. ' ' .. MeleeHitRate .. '|r</p>'
+        MeleeHitRateString = '|c' .. HeadColor .. 'Melee HitRate:|r|c' .. BodyColor .. ' ' .. MeleeHitRate .. '|r\n'
         content = content .. MeleeHitRateString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Melee_Hit Rating ' .. MeleeHitRate)
@@ -824,7 +834,7 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Melee_Power') then
         MeleeAP, MeleeposBuff, MeleenegBuff = UnitAttackPower("player");
         MeleeAPVal = tostring(MeleeAP + MeleeposBuff + MeleenegBuff)
-        MeleeApString = '<p align="center">|c' .. HeadColor .. 'Melee AP:|r|c' .. BodyColor .. ' ' .. MeleeAPVal .. '|r</p>'
+        MeleeApString = '|c' .. HeadColor .. 'Melee AP:|r|c' .. BodyColor .. ' ' .. MeleeAPVal .. '|r\n'
         content = content .. MeleeApString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Melee_Power ' .. MeleeAP)
@@ -833,12 +843,12 @@ function text_relaod(TipoAttacco)
     -- Melee_Speed
     if has_value(CHECKED_VALUES, 'Melee_Speed') then
         MeleeMainSpeed, MeleeOffSpeed = UnitAttackSpeed("player")
-        MeleeMainSpeedString = '<p align="center">|c' .. HeadColor .. 'Main Hand Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",MeleeMainSpeed) .. '|r</p>'
+        MeleeMainSpeedString = '|c' .. HeadColor .. 'Main Hand Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",MeleeMainSpeed) .. '|r\n'
         content = content .. MeleeMainSpeedString
         if MeleeOffSpeed == nil then
             a=1
         else
-            MeleeOffSpeedString = '<p align="center">|c' .. HeadColor .. 'Off Hand Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",MeleeOffSpeed) .. '|r</p>'
+            MeleeOffSpeedString = '|c' .. HeadColor .. 'Off Hand Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",MeleeOffSpeed) .. '|r\n'
             content = content .. MeleeOffSpeedString
         end
 
@@ -853,7 +863,7 @@ function text_relaod(TipoAttacco)
         MeleeMainSpeed, MeleeOffSpeed = UnitAttackSpeed("player")
         avgMain = (lowDmg + hiDmg)/2
         DPSMain = avgMain/MeleeMainSpeed
-        MeleeMainSpeedString = '<p align="center">|c' .. HeadColor .. 'Main Hand DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",DPSMain) .. '|r</p>'
+        MeleeMainSpeedString = '|c' .. HeadColor .. 'Main Hand DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",DPSMain) .. '|r\n'
         content = content .. MeleeMainSpeedString
 
         if MeleeOffSpeed == nil then
@@ -861,7 +871,7 @@ function text_relaod(TipoAttacco)
         else
             avgOFF = (offlowDmg + offhiDmg)/2
             DPSOFF = avgOFF/MeleeOffSpeed
-            MeleeMainSpeedString = '<p align="center">|c' .. HeadColor .. 'Off Hand DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",DPSOFF) .. '|r</p>'
+            MeleeMainSpeedString = '|c' .. HeadColor .. 'Off Hand DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",DPSOFF) .. '|r\n'
             content = content .. MeleeOFFDMGString
         end
 
@@ -869,7 +879,7 @@ function text_relaod(TipoAttacco)
     -- Ranged_Crit Chance
     if has_value(CHECKED_VALUES, 'Ranged_Crit Chance') then
         RangedCritChance = format("%.2f%%", GetRangedCritChance());
-        RangedCritString = '<p align="center">|c' .. HeadColor .. 'Ranged Crit:|r|c' .. BodyColor .. ' ' .. RangedCritChance .. '|r</p>'
+        RangedCritString = '|c' .. HeadColor .. 'Ranged Crit:|r|c' .. BodyColor .. ' ' .. RangedCritChance .. '|r\n'
         content = content .. RangedCritString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Ranged_Crit Chance' .. RangedCritChance)
@@ -879,9 +889,9 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Ranged_Damage') then
         RangedSpeed, RangedLowDmg, RangedHiDmg, RangedPosBuff, RangedNegBuff, RangedPercent = UnitRangedDamage("player")
         if RangedSpeed == 0 then
-            MeleeDMGString = '<p align="center">|c' .. HeadColor .. 'Ranged Damage:|r|c' .. BodyColor .. ' NA |r</p>'
+            MeleeDMGString = '|c' .. HeadColor .. 'Ranged Damage:|r|c' .. BodyColor .. ' NA |r\n'
         else
-            MeleeDMGString = '<p align="center">|c' .. HeadColor .. 'Ranged Damage:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(RangedLowDmg)) .. '-' .. tostring(math.floor(RangedHiDmg)) .. '|r</p>'
+            MeleeDMGString = '|c' .. HeadColor .. 'Ranged Damage:|r|c' .. BodyColor .. ' ' .. tostring(math.floor(RangedLowDmg)) .. '-' .. tostring(math.floor(RangedHiDmg)) .. '|r\n'
         end
         content = content .. MeleeDMGString
         --if DLAPI then
@@ -893,10 +903,10 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Ranged_Hit Rating') then
         RangedSpeed, RangedLowDmg, RangedHiDmg, RangedPosBuff, RangedNegBuff, RangedPercent = UnitRangedDamage("player")
         if RangedSpeed == 0 then
-            RangedHITString = '<p align="center">|c' .. HeadColor .. 'Ranged HIT:|r|c' .. BodyColor .. ' N/A |r</p>'
+            RangedHITString = '|c' .. HeadColor .. 'Ranged HIT:|r|c' .. BodyColor .. ' N/A |r\n'
         else
             RangedHit = string.format(GetCombatRatingBonus(7))
-            RangedHITString = '<p align="center">|c' .. HeadColor .. 'Ranged HIT:|r|c' .. BodyColor .. ' ' .. RangedHit .. '|r</p>'
+            RangedHITString = '|c' .. HeadColor .. 'Ranged HIT:|r|c' .. BodyColor .. ' ' .. RangedHit .. '|r\n'
         end
         content = content .. RangedHITString
         --if DLAPI then
@@ -908,11 +918,11 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Ranged_DPS') then
         RangedSpeed, RangedLowDmg, RangedHiDmg, RangedPosBuff, RangedNegBuff, RangedPercent = UnitRangedDamage("player")
         if RangedSpeed == 0 then
-            RangedDMGString = '<p align="center">|c' .. HeadColor .. 'Ranged DPS:|r|c' .. BodyColor .. ' N/A |r</p>'
+            RangedDMGString = '|c' .. HeadColor .. 'Ranged DPS:|r|c' .. BodyColor .. ' N/A |r\n'
         else
             RangedAVG = (RangedLowDmg + RangedHiDmg)/2
             RangedDPS = RangedAVG/RangedSpeed
-            RangedDMGString = '<p align="center">|c' .. HeadColor .. 'Ranged DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",RangedDPS) .. '|r</p>'
+            RangedDMGString = '|c' .. HeadColor .. 'Ranged DPS:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",RangedDPS) .. '|r\n'
         end
         content = content .. RangedDMGString
 
@@ -925,7 +935,7 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Ranged_Power') then
         RangedAP, RangedposBuff, RangednegBuff = UnitRangedAttackPower("player");
         RangedAPValue = tostring(RangedAP + RangedposBuff + RangednegBuff)
-        RangedAPString = '<p align="center">|c' .. HeadColor .. 'Ranged AP:|r|c' .. BodyColor .. ' ' .. RangedAPValue .. '|r</p>'
+        RangedAPString = '|c' .. HeadColor .. 'Ranged AP:|r|c' .. BodyColor .. ' ' .. RangedAPValue .. '|r\n'
         content = content .. RangedAPString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Ranged_Crit Chance' .. )
@@ -935,9 +945,9 @@ function text_relaod(TipoAttacco)
     if has_value(CHECKED_VALUES, 'Ranged_Speed') then
         RangedSpeed, RangedLowDmg, RangedHiDmg, RangedPosBuff, RangedNegBuff, RangedPercent = UnitRangedDamage("player")
         if RangedSpeed == 0 then
-            RangedSpeedString = '<p align="center">|c' .. HeadColor .. 'Ranged Speed:|r|c' .. BodyColor .. ' N/A |r</p>'
+            RangedSpeedString = '|c' .. HeadColor .. 'Ranged Speed:|r|c' .. BodyColor .. ' N/A |r\n'
         else
-            RangedSpeedString = '<p align="center">|c' .. HeadColor .. 'Ranged Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",RangedSpeed) .. '|r</p>'
+            RangedSpeedString = '|c' .. HeadColor .. 'Ranged Speed:|r|c' .. BodyColor .. ' ' .. string.format("%.2f",RangedSpeed) .. '|r\n'
         end
         content = content .. RangedSpeedString
         --if DLAPI then
@@ -948,7 +958,7 @@ function text_relaod(TipoAttacco)
     -- Spell_Bonus Healing
     if has_value(CHECKED_VALUES, 'Spell_Bonus Healing') then
         HealBonus = tostring(GetSpellBonusHealing())
-        HealingBonusString = '<p align="center">|c' .. HeadColor .. 'Healing:|r|c' .. BodyColor .. ' ' .. HealBonus .. '|r </p>'
+        HealingBonusString = '|c' .. HeadColor .. 'Healing:|r|c' .. BodyColor .. ' ' .. HealBonus .. '|r \n'
         content = content .. HealingBonusString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Spell_Bonus Healing ' .. HealBonus)
@@ -957,7 +967,7 @@ function text_relaod(TipoAttacco)
     -- Spell_Haste Rating
     if has_value(CHECKED_VALUES, 'Spell_Haste Rating') then
         SpellHaste = GetCombatRating(20)
-        SpellHasteString = '<p align="center">|c' .. HeadColor .. 'SpellHaste:|r|c' .. BodyColor .. ' ' .. tostring(SpellHaste) .. '|r </p>'
+        SpellHasteString = '|c' .. HeadColor .. 'SpellHaste:|r|c' .. BodyColor .. ' ' .. tostring(SpellHaste) .. '|r \n'
         content = content .. SpellHasteString
 
         --if DLAPI then
@@ -968,7 +978,7 @@ function text_relaod(TipoAttacco)
     -- Spell_Hit Rating
     if has_value(CHECKED_VALUES, 'Spell_Hit Rating') then
         SpellHit = GetCombatRatingBonus(CR_HIT_SPELL) + GetSpellHitModifier()
-        SpellHitString = '<p align="center">|c' .. HeadColor .. 'Spell Hit Rate:|r|c' .. BodyColor .. ' ' .. tostring(SpellHit) .. '|r </p>'
+        SpellHitString = '|c' .. HeadColor .. 'Spell Hit Rate:|r|c' .. BodyColor .. ' ' .. tostring(SpellHit) .. '|r \n'
         content = content .. SpellHitString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Spell_Hit Rating ')
@@ -980,8 +990,8 @@ function text_relaod(TipoAttacco)
         SpellRegenBase, SpellRegenCasting = GetManaRegen()
         SpellRegenBaseVal = string.format("%.2f",SpellRegenBase)
         SpellRegenCastingVal = string.format("%.2f",SpellRegenCasting)
-        SpellHitString = '<p align="center">|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r </p>'
-        SpellHitString = '<p align="center">|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r </p>'
+        SpellHitString = '|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r \n'
+        SpellHitString = '|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r \n'
         content = content .. SpellHitString .. SpellHitString
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Spell_Mana Regen ')
@@ -994,8 +1004,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Holy Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Holy Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Holy Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Holy Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Holy ' .. SpellAPVal)
@@ -1008,8 +1018,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Fire Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Fire Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Fire Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Fire Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Fire ' .. SpellAPVal)
@@ -1022,8 +1032,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Nature Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Nature Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Nature Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Nature Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Nature ' .. SpellAPVal)
@@ -1036,8 +1046,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Frost Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Frost Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Frost Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Frost Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Frost ' .. SpellAPVal)
@@ -1050,8 +1060,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Shadow Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Shadow Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Shadow Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Shadow Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Shadow ' .. SpellAPVal)
@@ -1064,8 +1074,8 @@ function text_relaod(TipoAttacco)
         SpellAP = GetSpellBonusDamage(school);
         SpellAPVal = tostring(AP)
         SpellcritChance = format("%.2f%%", GetSpellCritChance(school));
-        SpellAPString = '<p align="center">|c' .. HeadColor .. 'Holy Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r</p>'
-        SpellcritChanceString = '<p align="center">|c' .. HeadColor .. 'Holy Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r</p>'
+        SpellAPString = '|c' .. HeadColor .. 'Holy Power:|r|c' .. BodyColor .. ' ' .. SpellAPVal .. '|r\n'
+        SpellcritChanceString = '|c' .. HeadColor .. 'Holy Crit:|r|c' .. BodyColor .. ' ' .. SpellcritChance .. '|r\n'
         content = content .. SpellAPString .. SpellcritChanceString
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Spell_Arcane ' .. SpellAPVal)
@@ -1075,7 +1085,7 @@ function text_relaod(TipoAttacco)
     -- Stats_Agility
     if has_value(CHECKED_VALUES, 'Stats_Agility') then
         AGIbase, AGIstat, AGIposBuff, AGInegBuff = UnitStat("player", 2);
-        AGIstringa = '<h1 align="center">|c' .. HeadColor .. 'Agility:|r|c' .. BodyColor .. ' ' .. tostring(AGIstat) .. '|r</h1>'
+        AGIstringa = '|c' .. HeadColor .. 'Agility:|r|c' .. BodyColor .. ' ' .. tostring(AGIstat) .. '|r\n'
         content = content .. AGIstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Agility ' .. tostring(AGIstat))
@@ -1084,7 +1094,7 @@ function text_relaod(TipoAttacco)
     -- Stats_Intellect
     if has_value(CHECKED_VALUES, 'Stats_Intellect') then
         INTbase, INTstat, INTposBuff, INTnegBuff = UnitStat("player", 4);
-        INTstringa = '<h1 align="center">|c' .. HeadColor .. 'Intelligence:|r|c' .. BodyColor .. ' ' .. tostring(INTstat) .. '|r</h1>'
+        INTstringa = '|c' .. HeadColor .. 'Intelligence:|r|c' .. BodyColor .. ' ' .. tostring(INTstat) .. '|r\n'
         content = content .. INTstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Intellect ' .. tostring(INTstat))
@@ -1093,7 +1103,7 @@ function text_relaod(TipoAttacco)
     -- Stats_Spirit
     if has_value(CHECKED_VALUES, 'Stats_Spirit') then
         SPIbase, SPIstat, SPIposBuff, SPInegBuff = UnitStat("player", 5);
-        SPIstringa = '<h1 align="center">|c' .. HeadColor .. 'Spirit:|r|c' .. BodyColor .. ' ' .. tostring(SPIstat) .. '|r</h1>'
+        SPIstringa = '|c' .. HeadColor .. 'Spirit:|r|c' .. BodyColor .. ' ' .. tostring(SPIstat) .. '|r\n'
         content = content .. SPIstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Spirit ' .. tostring(SPIstat))
@@ -1102,7 +1112,7 @@ function text_relaod(TipoAttacco)
     -- Stats_Stamina
     if has_value(CHECKED_VALUES, 'Stats_Stamina') then
         STAbase, STAstat, STAposBuff, STAnegBuff = UnitStat("player", 3);
-        STAstringa = '<h1 align="center">|c' .. HeadColor .. 'Stamina:|r|c' .. BodyColor .. ' ' .. tostring(STAstat) .. '|r</h1>'
+        STAstringa = '|c' .. HeadColor .. 'Stamina:|r|c' .. BodyColor .. ' ' .. tostring(STAstat) .. '|r\n'
         content = content .. STAstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Stamina ' .. tostring(STAstat))
@@ -1111,23 +1121,41 @@ function text_relaod(TipoAttacco)
     -- Stats_Strenght
     if has_value(CHECKED_VALUES, 'Stats_Strenght') then
         STRbase, STRstat, STRposBuff, STRnegBuff = UnitStat("player", 1);
-        STRstringa = '<h1 align="center">|c' .. HeadColor .. 'Strenght:|r|c' .. BodyColor .. ' ' .. tostring(STRstat) .. '|r</h1>'
+        STRstringa = '|c' .. HeadColor .. 'Strenght:|r|c' .. BodyColor .. ' ' .. tostring(STRstat) .. '|r\n'
         content = content .. STRstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Strenght ' .. tostring(STRstat))
         -- end
     end
 
-    RaikFrameStat:SetText('\
-    <html>\
-    <body>\
-        <h1 align="center">RaikStatistics</h1>\
-            ' .. content .. '\
-        </body>\
-    </html>');
-    RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
-    RaikFrameStat.texture:SetColorTexture(SfondoR, SfondoG, SfondoB);
-    RaikFrameStat.texture:SetAlpha(SfondoA);
+    for i = 1, GetNumSkillLines() do 
+        
+        skillName, header, isExpanded, skillRan, numTempPoints, skillModifier, skillMaxRank, isAbandonable, stepCost, rankCost, minLevel, skillCostType, skillDescription = GetSkillLineInfo(i)
+        
+        -- here I find Defense
+        if skillName == 'Defense' then
+            if has_value(CHECKED_VALUES, 'Defences_Defense') then
+                DefenseString = '|c' .. HeadColor .. 'Defense:|r|c' .. BodyColor .. ' ' .. tostring(skillRan) .. '|r\n'
+                content = content .. DefenseString
+            end
+        end
+
+    
+    end 
+
+    
+    text:SetText(content);
+    -- text:SetTextHeight(FONTSIZE);
+    text:SetFont(FONTTYPE, FONTSIZE);
+
+    -- RaikFrameStat:SetText('\
+    -- <html>\
+    -- <body> \
+    --         ' .. content .. '\
+    --     </body>\
+    -- </html>');
+
+    -- RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
 end
 
 SLASH_SHOWRAIKWINDOW1 = "/ShowRaikWindow"
@@ -1142,8 +1170,7 @@ end
 
 SLASH_RAIKRELOAD1 = "/RaikReload"
 SlashCmdList["RAIKRELOAD"] = function(msg)
-    TIPOUPDATE = msg
-    text_relaod(msg)
+    text_relaod()
 end
 
 SLASH_RAIKFONT1 = "/RaikFont"
@@ -1155,7 +1182,7 @@ local f = CreateFrame("Frame");
 function f:onUpdate(sinceLastUpdate)
     self.sinceLastUpdate = (self.sinceLastUpdate or 0) + sinceLastUpdate;
     if (self.sinceLastUpdate >= 1) then -- in seconds
-        text_relaod(TIPOUPDATE)
+        text_relaod()
         self.sinceLastUpdate = 0;
     end
 end
