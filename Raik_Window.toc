@@ -3,5 +3,6 @@
 ## Author: Raikoug
 ## Version: 2.1
 ## SavedVariablesPerCharacter: CHECKED_VALUES, FONTSIZE, FONTTYPE, HeadColor, BodyColor, HeadR, HeadG, HeadB, BodyR, BodyG, BodyB
+## OptionalDeps: _DebugLog
 
 windows.lua

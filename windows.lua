@@ -13,88 +13,96 @@ RaikFrameStat:SetPoint("CENTER");
 RaikFrameStat:SetWidth(150);
 RaikFrameStat:SetHeight(150);
 
+RaikFrameStat.TitleText:SetText("Raik Window")
+
+if DLAPI then
+    DLAPI.DebugLog(addonName, "Frame Inited")
+end
+
 text = RaikFrameStat:CreateFontString("TheContent","OVERLAY","GameFontNormal");--    Our text area
 text:SetPoint("TOP", 0,-10);
 
-RaikFrameStat.TitleText:SetText("Raik Window")
+if DLAPI then
+    DLAPI.DebugLog(addonName, "Text Inited")
+end
 
 addonName = "RaikWindow"
 
 
 if CHECKED_VALUES == nil then
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init CHECKED_VALUES")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init CHECKED_VALUES")
+    end
     CHECKED_VALUES = {}
 end
 if FONTSIZE == nil then
     FONTSIZE = 11
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init FONTSIZE")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init FONTSIZE")
+    end
 end
 
 if FONTTYPE == nil then
     FONTTYPE = 'Fonts\\FRIZQT__.TTF'
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init FONTTYPE")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init FONTTYPE")
+    end
 end
 
 if HeadColor == nil then
     HeadColor = "ffee4400"
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init HeadColor")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init HeadColor")
+    end
 end
 
 if BodyColor == nil then
     BodyColor = "FF0000FF"
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init BodyColor")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init BodyColor")
+    end
 end
 
 if HeadR == nil then
     HeadR = 1
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init HeadR")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init HeadR")
+    end
 end
 
 if HeadG == nil then
     HeadG = 0.3
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init HeadG")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init HeadG")
+    end
 end
 
 if HeadB == nil then
     HeadB = 0.0
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init HeadB")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init HeadB")
+    end
 end
 
 if BodyR == nil then
     BodyR = 0
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init BodyR")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init BodyR")
+    end
 end
 
 if BodyG == nil then
     BodyG = 0
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init BodyG")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init BodyG")
+    end
 end
 
 if BodyB == nil then
     BodyB = 1
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "Init BodyB")
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "Init BodyB")
+    end
 end
 
 function RGBtoHexa(r, g, b)
@@ -442,9 +450,9 @@ SKURRICYR:SetFont("Fonts\\SKURRI_CYR.TTF", 11)
 SKURRICYR:SetFontObject("GameFontNormal");
 
 function ShowColorPicker(r, g, b, a, changedCallback)
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, "r: " .. r .. ", g: " .. g .. ", b: " .. b)
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, "ShowColorPicker - r: " .. r .. ", g: " .. g .. ", b: " .. b .. ", a: " .. a)
+    end
     ColorPickerFrame.func, ColorPickerFrame.opacityFunc, ColorPickerFrame.cancelFunc = changedCallback, changedCallback,
         changedCallback;
 
@@ -491,9 +499,9 @@ end
 
 local function ValueClicked(value)
     func = 'ValueClicked - '
-    --if DLAPI then
-    --    DLAPI.DebugLog(addonName, func .. 'called')
-    --end
+    if DLAPI then
+        DLAPI.DebugLog(addonName, func .. 'called with ' .. value)
+    end
     if has_value(CHECKED_VALUES, value) then
     -- value cheked, deseleziono, tolgo da array
         --if DLAPI then
@@ -511,7 +519,7 @@ local function ValueClicked(value)
     end
 
     if DLAPI then
-        DLAPI.DebugLog(addonName, table.concat(CHECKED_VALUES,", "))
+        DLAPI.DebugLog(addonName, 'CHECKED_VALUES: ' .. table.concat(CHECKED_VALUES,", "))
     end
     text_relaod()
 end
@@ -669,17 +677,6 @@ function Test1_DropDown_Initialize(self, level)
                     PresetFunctions[subsubarray["name"]]();
                     dropdown:Hide()
                 end;
-                -- if subsubarray["name"] == 'Tank' then
-                --     info.func = function() 
-                --         TankPreset();
-                --         dropdown:Hide()
-                --     end;
-                -- elseif subsubarray['name'] == 'Clean' then
-                --     info.func = function() 
-                --         CleanPreset();
-                --         dropdown:Hide()
-                --     end;
-                -- end
             else
                 info.func = function()
                     dropdown:Hide()
@@ -1143,19 +1140,19 @@ function text_relaod()
     
     end 
 
-    
-    text:SetText(content);
-    -- text:SetTextHeight(FONTSIZE);
-    text:SetFont(FONTTYPE, FONTSIZE);
-
-    -- RaikFrameStat:SetText('\
-    -- <html>\
-    -- <body> \
-    --         ' .. content .. '\
-    --     </body>\
-    -- </html>');
-
-    -- RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
+    if text then
+        text:SetText(content);
+        -- text:SetTextHeight(FONTSIZE);
+        text:SetFont(FONTTYPE, FONTSIZE);
+    else
+        if DLAPI then
+            DLAPI.DebugLog(addonName, "Text not setted, init again?")
+        end
+        text = RaikFrameStat:CreateFontString("TheContent","OVERLAY","GameFontNormal");--    Our text area
+        text:SetPoint("TOP", 0,-10);
+        text:SetText(content);
+        text:SetFont(FONTTYPE, FONTSIZE);
+    end
 end
 
 SLASH_SHOWRAIKWINDOW1 = "/ShowRaikWindow"
