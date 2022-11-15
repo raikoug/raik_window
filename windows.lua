@@ -2,7 +2,6 @@ local RaikFrameStat = CreateFrame("SimpleHTML", "DragFrame2", UIParent, "BasicFr
 RaikFrameStat:SetMovable(true)
 RaikFrameStat:EnableMouse(true)
 RaikFrameStat:SetResizable(true)
-RaikFrameStat:SetMinResize(50, 50)
 
 RaikFrameStat:RegisterForDrag("LeftButton")
 RaikFrameStat:SetScript("OnDragStart", RaikFrameStat.StartMoving)
@@ -174,7 +173,7 @@ RaikFrameStatPlusSize:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-Down.P
 
 RaikFrameStatPlusSize:SetScript("OnMouseDown", function()
     FONTSIZE = FONTSIZE + 1
-    RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
+--     RaikFrameStat:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
 end)
 
 local RaikFrameStatMinusSize = CreateFrame("Button", nil, RaikFrameStat)
@@ -186,13 +185,13 @@ RaikFrameStatMinusSize:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-Down
 
 RaikFrameStatMinusSize:SetScript("OnMouseDown", function()
     FONTSIZE = FONTSIZE - 1
-    RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
+--     RaikFrameStat:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
 end)
 
 RaikFrameStat:EnableMouseWheel(1)
 RaikFrameStat:SetScript("OnMouseWheel", function(self, arg1)
     FONTSIZE = FONTSIZE + arg1
-    RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
+--     RaikFrameStat:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
 end)
 
 
@@ -202,7 +201,7 @@ RaikFrameStat:SetText('\
     </body>\
 </html>');
 
-RaikFrameStat:SetFont(FONTTYPE, FONTSIZE);
+-- -- RaikFrameStat:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
 
 -- creating test data structure
 local Test1_Data = {
@@ -218,9 +217,6 @@ local Test1_Data = {
         },
         [4] = {
             ["name"] = "Intellect"
-        },
-        [5] = {
-            ["name"] = "Spirit"
         }
     },
     ["02_Melee"] = {
@@ -265,34 +261,10 @@ local Test1_Data = {
     },
     ["04_Spell"] = {
         [1] = {
-            ["name"] = "Bonus Healing"
+            ["name"] = "Healing"
         },
         [2] = {
-            ["name"] = "Hit Rating"
-        },
-        [3] = {
-            ["name"] = "Haste Rating"
-        },
-        [4] = {
-            ["name"] = "Mana Regen"
-        },
-        [5] = {
-            ["name"] = "Holy"
-        },
-        [6] = {
-            ["name"] = "Fire"
-        },
-        [7] = {
-            ["name"] = "Nature"
-        },
-        [8] = {
-            ["name"] = "Frost"
-        },
-        [9] = {
-            ["name"] = "Shadow"
-        },
-        [10] = {
-            ["name"] = "Arcane"
+            ["name"] = "Spell Stats"
         }
     },
     ["05_Defences"] = {
@@ -318,6 +290,9 @@ local Test1_Data = {
             ["name"] = "Tank"
         },
         [2] = {
+            ["name"] = "Healer"
+        },
+        [3] = {
             ["name"] = "Clean"
         }
     },
@@ -393,60 +368,60 @@ local Test1_Data = {
 -- font objects
 two = CreateFont('two')
 two:SetFontObject("GameFontNormal");
-two:SetFont("Fonts\\2002.ttf", 11)
+-- two:SetFont("Fonts\\2002.ttf", 11)
 twoB = CreateFont('twoB')
-twoB:SetFont("Fonts\\2002B.ttf", 11)
+-- -- twoB:SetFont("Fonts\\2002B.ttf", 11)
 twoB:SetFontObject("GameFontNormal");
 ARHei = CreateFont('ARHei')
-ARHei:SetFont("Fonts\\ARHei.ttf", 11)
+-- ARHei:SetFont("Fonts\\ARHei.ttf", 11)
 ARHei:SetFontObject("GameFontNormal");
 ARIALN = CreateFont('ARIALN')
-ARIALN:SetFont("Fonts\\ARIALN.TTF", 11)
+-- ARIALN:SetFont("Fonts\\ARIALN.TTF", 11)
 ARIALN:SetFontObject("GameFontNormal");
 ARKaiC = CreateFont('ARKaiC')
-ARKaiC:SetFont("Fonts\\ARKai_C.ttf", 11)
+-- ARKaiC:SetFont("Fonts\\ARKai_C.ttf", 11)
 ARKaiC:SetFontObject("GameFontNormal");
 ARKaiT = CreateFont('ARKaiT')
-ARKaiT:SetFont("Fonts\\ARKai_T.ttf", 11)
+-- ARKaiT:SetFont("Fonts\\ARKai_T.ttf", 11)
 ARKaiT:SetFontObject("GameFontNormal");
 bHEI00M = CreateFont('bHEI00M')
-bHEI00M:SetFont("Fonts\\bHEI00M.ttf", 11)
+-- bHEI00M:SetFont("Fonts\\bHEI00M.ttf", 11)
 bHEI00M:SetFontObject("GameFontNormal");
 bHEI01B = CreateFont('bHEI01B')
-bHEI01B:SetFont("Fonts\\bHEI01B.ttf", 11)
+-- bHEI01B:SetFont("Fonts\\bHEI01B.ttf", 11)
 bHEI01B:SetFontObject("GameFontNormal");
 bKAI00M = CreateFont('bKAI00M')
-bKAI00M:SetFont("Fonts\\bKAI00M.ttf", 11)
+-- bKAI00M:SetFont("Fonts\\bKAI00M.ttf", 11)
 bKAI00M:SetFontObject("GameFontNormal");
 bLEI00D = CreateFont('bLEI00D')
-bLEI00D:SetFont("Fonts\\bLEI00D.ttf", 11)
+-- bLEI00D:SetFont("Fonts\\bLEI00D.ttf", 11)
 bLEI00D:SetFontObject("GameFontNormal");
 FRIZQT = CreateFont('FRIZQT')
-FRIZQT:SetFont("Fonts\\FRIZQT__.TTF", 11)
+-- FRIZQT:SetFont("Fonts\\FRIZQT__.TTF", 11)
 FRIZQT:SetFontObject("GameFontNormal");
 FRIZQTCYR = CreateFont('FRIZQTCYR')
-FRIZQTCYR:SetFont("Fonts\\FRIZQT___CYR.TTF", 11)
+-- FRIZQTCYR:SetFont("Fonts\\FRIZQT___CYR.TTF", 11)
 FRIZQTCYR:SetFontObject("GameFontNormal");
 KDamage = CreateFont('KDamage')
-KDamage:SetFont("Fonts\\K_Damage.TTF", 11)
+-- KDamage:SetFont("Fonts\\K_Damage.TTF", 11)
 KDamage:SetFontObject("GameFontNormal");
 KPagetext = CreateFont('KPagetext')
-KPagetext:SetFont("Fonts\\K_Pagetext.TTF", 11)
+-- KPagetext:SetFont("Fonts\\K_Pagetext.TTF", 11)
 KPagetext:SetFontObject("GameFontNormal");
 MORPHEUS = CreateFont('MORPHEUS')
-MORPHEUS:SetFont("Fonts\\MORPHEUS.TTF", 11)
+-- MORPHEUS:SetFont("Fonts\\MORPHEUS.TTF", 11)
 MORPHEUS:SetFontObject("GameFontNormal");
 MORPHEUSCYR = CreateFont('MORPHEUSCYR')
-MORPHEUSCYR:SetFont("Fonts\\MORPHEUS_CYR.TTF", 11)
+-- MORPHEUSCYR:SetFont("Fonts\\MORPHEUS_CYR.TTF", 11)
 MORPHEUSCYR:SetFontObject("GameFontNormal");
 NIM = CreateFont('NIM')
-NIM:SetFont("Fonts\\NIM_____.ttf", 11)
+-- NIM:SetFont("Fonts\\NIM_____.ttf", 11)
 NIM:SetFontObject("GameFontNormal");
 SKURRI = CreateFont('SKURRI')
-SKURRI:SetFont("Fonts\\SKURRI.TTF", 11)
+-- SKURRI:SetFont("Fonts\\SKURRI.TTF", 11)
 SKURRI:SetFontObject("GameFontNormal");
 SKURRICYR = CreateFont('SKURRICYR')
-SKURRICYR:SetFont("Fonts\\SKURRI_CYR.TTF", 11)
+-- SKURRICYR:SetFont("Fonts\\SKURRI_CYR.TTF", 11)
 SKURRICYR:SetFontObject("GameFontNormal");
 
 function ShowColorPicker(r, g, b, a, changedCallback)
@@ -706,8 +681,8 @@ function dump(o)
 end
 
 function change_font(font)
-    RaikFrameStat:SetFont('Fonts\\' .. font, FONTSIZE);
-    FONTTYPE = 'Fonts\\' .. font
+--     RaikFrameStat:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
+    FONTTYPE = "Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf"
     text_relaod()
 end
 
@@ -721,7 +696,8 @@ end)
 
 PresetFunctions = {
     Tank = function() TankPreset() end,
-    Clean = function() CleanPreset() end
+    Clean = function() CleanPreset() end,
+    Healer = function() HealerPreset() end
 }
 
 function TankPreset()
@@ -749,6 +725,20 @@ function CleanPreset()
     end
     text_relaod()
 end
+
+function HealerPreset()
+    
+    CHECKED_VALUES = {
+        "Spell_Healing", -- [1]
+        "Stats_Intellect", --[2]
+    }
+    if DLAPI then
+        DLAPI.DebugLog(addonName, 'Healer preset ' .. table.concat(CHECKED_VALUES))
+    end
+    text_relaod()
+
+end
+
 
 
 function text_relaod()
@@ -952,6 +942,7 @@ function text_relaod()
         --end
 
     end
+
     -- Spell_Bonus Healing
     if has_value(CHECKED_VALUES, 'Spell_Bonus Healing') then
         HealBonus = tostring(GetSpellBonusHealing())
@@ -961,6 +952,54 @@ function text_relaod()
         --    DLAPI.DebugLog(addonName, 'Spell_Bonus Healing ' .. HealBonus)
         --end
     end
+
+    if has_value(CHECKED_VALUES, 'Spell_Healing') then
+        HealBonus = tostring(GetSpellBonusHealing())
+        HealingBonusString = '|c' .. HeadColor .. 'Healing:|r|c' .. BodyColor .. ' ' .. HealBonus .. '|r \n'
+        content = content .. HealingBonusString
+
+        SpellHaste = GetCombatRating(20)
+        SpellHasteString = '|c' .. HeadColor .. 'SpellHaste:|r|c' .. BodyColor .. ' ' .. tostring(SpellHaste) .. '|r \n'
+        content = content .. SpellHasteString
+
+        SpellRegenBase, SpellRegenCasting = GetManaRegen()
+        SpellRegenBaseVal = string.format("%.2f",SpellRegenBase)
+        SpellRegenCastingVal = string.format("%.2f",SpellRegenCasting)
+        SpellRegString = '|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r \n'
+        SpellRegStringCasting = '|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r \n'
+        content = content .. SpellRegString .. SpellRegStringCasting
+
+        --if DLAPI then
+        --    DLAPI.DebugLog(addonName, 'Spell_Bonus Healing ' .. HealBonus)
+        --end
+    end
+
+    if has_value(CHECKED_VALUES, 'Spell_Spell Stats') then
+        SpellBonus = tostring(GetSpellBonusDamage(2))
+        SpellBonusString = '|c' .. HeadColor .. 'SpellBonus:|r|c' .. BodyColor .. ' ' .. HealBonus .. '|r \n'
+        content = content .. SpellBonusString
+
+        SpellHaste = GetCombatRating(20)
+        SpellHasteString = '|c' .. HeadColor .. 'SpellHaste:|r|c' .. BodyColor .. ' ' .. tostring(SpellHaste) .. '|r \n'
+        content = content .. SpellHasteString
+
+        SpellRegenBase, SpellRegenCasting = GetManaRegen()
+        SpellRegenBaseVal = string.format("%.2f",SpellRegenBase)
+        SpellRegenCastingVal = string.format("%.2f",SpellRegenCasting)
+        SpellRegString = '|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r \n'
+        SpellRegStringCasting = '|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r \n'
+        content = content .. SpellRegString .. SpellRegStringCasting
+
+        SpellHit = GetCombatRatingBonus(CR_HIT_SPELL) + GetSpellHitModifier()
+        SpellHitString = '|c' .. HeadColor .. 'Spell Hit Rate:|r|c' .. BodyColor .. ' ' .. tostring(SpellHit) .. '|r \n'
+        content = content .. SpellHitString
+
+        --if DLAPI then
+        --    DLAPI.DebugLog(addonName, 'Spell_Bonus Healing ' .. HealBonus)
+        --end
+    end
+    
+
     -- Spell_Haste Rating
     if has_value(CHECKED_VALUES, 'Spell_Haste Rating') then
         SpellHaste = GetCombatRating(20)
@@ -987,9 +1026,9 @@ function text_relaod()
         SpellRegenBase, SpellRegenCasting = GetManaRegen()
         SpellRegenBaseVal = string.format("%.2f",SpellRegenBase)
         SpellRegenCastingVal = string.format("%.2f",SpellRegenCasting)
-        SpellHitString = '|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r \n'
-        SpellHitString = '|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r \n'
-        content = content .. SpellHitString .. SpellHitString
+        SpellRegString = '|c' .. HeadColor .. 'Mana Regen:|r|c' .. BodyColor .. ' ' .. SpellRegenBaseVal .. '|r \n'
+        SpellRegStringCasting = '|c' .. HeadColor .. 'Mana Regen Casting:|r|c' .. BodyColor .. ' ' .. SpellRegenCastingVal .. '|r \n'
+        content = content .. SpellRegString .. SpellRegStringCasting
         --if DLAPI then
         --    DLAPI.DebugLog(addonName, 'Spell_Mana Regen ')
         --end
@@ -1097,15 +1136,7 @@ function text_relaod()
         --     DLAPI.DebugLog(addonName, 'Stats_Intellect ' .. tostring(INTstat))
         -- end
     end
-    -- Stats_Spirit
-    if has_value(CHECKED_VALUES, 'Stats_Spirit') then
-        SPIbase, SPIstat, SPIposBuff, SPInegBuff = UnitStat("player", 5);
-        SPIstringa = '|c' .. HeadColor .. 'Spirit:|r|c' .. BodyColor .. ' ' .. tostring(SPIstat) .. '|r\n'
-        content = content .. SPIstringa
-        -- if DLAPI then
-        --     DLAPI.DebugLog(addonName, 'Stats_Spirit ' .. tostring(SPIstat))
-        -- end
-    end
+    
     -- Stats_Stamina
     if has_value(CHECKED_VALUES, 'Stats_Stamina') then
         STAbase, STAstat, STAposBuff, STAnegBuff = UnitStat("player", 3);
@@ -1125,25 +1156,25 @@ function text_relaod()
         -- end
     end
 
-    for i = 1, GetNumSkillLines() do 
-        
-        skillName, header, isExpanded, skillRan, numTempPoints, skillModifier, skillMaxRank, isAbandonable, stepCost, rankCost, minLevel, skillCostType, skillDescription = GetSkillLineInfo(i)
-        
-        -- here I find Defense
-        if skillName == 'Defense' then
-            if has_value(CHECKED_VALUES, 'Defences_Defense') then
-                DefenseString = '|c' .. HeadColor .. 'Defense:|r|c' .. BodyColor .. ' ' .. tostring(skillRan) .. '|r\n'
-                content = content .. DefenseString
-            end
-        end
-
-    
-    end 
+    --for i = 1, GetNumSkillLines() do 
+    --    
+    --    skillName, header, isExpanded, skillRan, numTempPoints, skillModifier, skillMaxRank, isAbandonable, stepCost, rankCost, minLevel, skillCostType, skillDescription = GetSkillLineInfo(i)
+    --    
+    --    -- here I find Defense
+    --    if skillName == 'Defense' then
+    --        if has_value(CHECKED_VALUES, 'Defences_Defense') then
+    --            DefenseString = '|c' .. HeadColor .. 'Defense:|r|c' .. BodyColor .. ' ' .. tostring(skillRan) .. '|r\n'
+    --            content = content .. DefenseString
+    --        end
+    --    end
+--
+    --
+    --end 
 
     if text then
         text:SetText(content);
         -- text:SetTextHeight(FONTSIZE);
-        text:SetFont(FONTTYPE, FONTSIZE);
+--         text:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
     else
         if DLAPI then
             DLAPI.DebugLog(addonName, "Text not setted, init again?")
@@ -1151,7 +1182,7 @@ function text_relaod()
         text = RaikFrameStat:CreateFontString("TheContent","OVERLAY","GameFontNormal");--    Our text area
         text:SetPoint("TOP", 0,-10);
         text:SetText(content);
-        text:SetFont(FONTTYPE, FONTSIZE);
+--         text:SetFont("Interface\\AddOns\\raik_window\\media\\fonts\\Myriad Condensed Web.ttf", FONTSIZE, "OUTLINE");
     end
 end
 
