@@ -1,4 +1,4 @@
-## Interface: 11403
+## Interface: 100000
 ## Title: Raik_Window
 ## Author: Raikoug
 ## Version: 2.1
