@@ -1130,7 +1130,7 @@ function text_relaod()
     -- Stats_Intellect
     if has_value(CHECKED_VALUES, 'Stats_Intellect') then
         INTbase, INTstat, INTposBuff, INTnegBuff = UnitStat("player", 4);
-        INTstringa = '|c' .. HeadColor .. 'Intelligence:|r|c' .. BodyColor .. ' ' .. tostring(INTstat) .. '|r\n'
+        INTstringa = '|c' .. HeadColor .. 'Intellect:|r|c' .. BodyColor .. ' ' .. tostring(INTstat) .. '|r\n'
         content = content .. INTstringa
         -- if DLAPI then
         --     DLAPI.DebugLog(addonName, 'Stats_Intellect ' .. tostring(INTstat))
