@@ -18,10 +18,10 @@ end
 function change_font(font)
     local fontPath = "Fonts\\" .. font
     if RaikFrameStat then
-        RaikFrameStat:SetFont(fontPath, FONTSIZE)
+        RaikFrameStat:SetFont(fontPath, FONTSIZE, "")
     end
     if text then
-        text:SetFont(fontPath, FONTSIZE)
+        text:SetFont(fontPath, FONTSIZE, "")
     end
     FONTTYPE = fontPath
     text_reload()
