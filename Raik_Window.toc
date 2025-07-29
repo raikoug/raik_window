@@ -1,8 +1,16 @@
-## Interface: 11403
+## Interface: 50400
 ## Title: Raik_Window
 ## Author: Raikoug
-## Version: 2.1
+## Version: 2.2
+## Notes: Floating stat window for quick info
 ## SavedVariablesPerCharacter: CHECKED_VALUES, FONTSIZE, FONTTYPE, HeadColor, BodyColor, HeadR, HeadG, HeadB, BodyR, BodyG, BodyB
 ## OptionalDeps: _DebugLog
 
-windows.lua
+Localization.lua
+core.lua
+fonts.lua
+colors.lua
+presets.lua
+stats.lua
+ui.lua
+menu.lua
