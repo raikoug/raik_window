@@ -1,5 +1,8 @@
 -- ui.lua
 
+local addonName, ns = ...
+local L = ns.L
+
 -- Main frame
 RaikFrameStat = CreateFrame("Frame", "RaikFrameStat", UIParent, "BasicFrameTemplateWithInset")
 RaikFrameStat:SetSize(150, 150)
