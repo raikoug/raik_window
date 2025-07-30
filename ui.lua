@@ -7,7 +7,7 @@ RaikFrameStat:SetPoint("CENTER")
 RaikFrameStat:SetMovable(true)
 RaikFrameStat:EnableMouse(true)
 RaikFrameStat:SetResizable(true)
-RaikFrameStat:SetMinResize(50, 50)
+RaikFrameStat:SetResizeBounds(50,50)
 RaikFrameStat:SetClampedToScreen(true)
 
 -- Dragging
