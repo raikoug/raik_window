@@ -10,7 +10,7 @@ local fontList = {
 for _, fontName in ipairs(fontList) do
     local name = fontName:gsub("[%.]", "") -- remove dots for valid object name
     local obj = CreateFont(name)
-    obj:SetFont("Fonts\\" .. fontName, FONTSIZE)
+    obj:SetFont("Fonts\\" .. fontName, FONTSIZE, "")
     obj:SetFontObject("GameFontNormal")
     RaikFonts[fontName] = obj
 end
