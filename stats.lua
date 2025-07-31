@@ -103,7 +103,7 @@ function text_reload()
         content = content .. string.format("|c%sRanged Crit:|r %s\n", head, crit)
     end
     if has_value(CHECKED_VALUES, 'Ranged_Hit Rating') then
-        local hit = format("%.2f%%", GetCombatRatingBonus(CR_HIT_RANGED_HIT) + GetHitModifier())
+        local hit = format("%.2f%%", GetCombatRatingBonus(CR_HIT_RANGED) + GetHitModifier())
         content = content .. string.format("|c%sRanged Hit Rate:|r %s\n", head, hit)
     end
 
