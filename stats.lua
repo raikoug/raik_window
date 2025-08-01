@@ -1,5 +1,8 @@
 -- stats.lua
 
+local addonName, ns = ...
+local text = ns.text  
+
 -- Utility to check if a value is in a table
 local function has_value(tab, val)
     for _, value in ipairs(tab) do
@@ -148,7 +151,7 @@ function text_reload()
     end
 
     -- Update the FontString
-    if text then
+    if text and type(text.SetText) == "function" then
         text:SetText(content)
         text:SetFont(FONTTYPE, FONTSIZE)
     end
